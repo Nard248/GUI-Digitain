@@ -18,8 +18,8 @@ entry1.pack(padx=5, pady=15, side=LEFT)
 
 Label(root, text='Name2').pack()
 entry2 = Entry(root, width=20)
-entry2.pack()
+entry2.pack(padx=10, pady=30, side=LEFT)
 
-Button(root, text='Button', command=button_command).pack()
-
+Button(root, text='Button', command=button_command).pack(padx=10, pady=30, side=RIGHT)
+#DID MINOR CHANGES
 root.mainloop()
