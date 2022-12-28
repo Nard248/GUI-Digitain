@@ -1,7 +1,7 @@
 from tkinter import *
 
 root = Tk()
-root.geometry('400x200')
+root.geometry('800x400')
 
 
 def button_command():
@@ -14,7 +14,7 @@ def button_command():
 
 Label(root, text='Name1').pack()
 entry1 = Entry(root, width=20)
-entry1.pack()
+entry1.pack(padx=5, pady=15, side=LEFT)
 
 Label(root, text='Name2').pack()
 entry2 = Entry(root, width=20)
