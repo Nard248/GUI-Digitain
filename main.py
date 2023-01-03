@@ -1,19 +1,22 @@
 import tkinter as tk
-from tkcalendar import Calendar
+import tkcalendar
 import pandas as pd
 import pyodbc
 from datetime import datetime as dt
+import warnings
+
+warnings.filterwarnings("ignore")
 
 root = tk.Tk()
 root.geometry('1600x800')
 
 
 def button_command():
-    startdate = cal.get_date()
-    enddate = cal2.get_date()
+    startdate = str(cal1.get_date())
+    enddate = str(cal2.get_date())
     print(startdate)
-    startdate = dt.strptime(startdate, '%m/%d/%y')
-    enddate = dt.strptime(enddate, '%m/%d/%y')
+    startdate = dt.strptime(startdate, '%Y-%m-%d')
+    enddate = dt.strptime(enddate, '%Y-%m-%d')
     print(startdate)
     min_dep = min_deposit.get()
     max_dep = max_deposit.get()
@@ -55,24 +58,35 @@ def button_command():
     df.to_csv(f'test.csv', date_format='%Y/%m/%d')
 
 
+tk.Label(root, text='StartDate', width=10).grid(row=0, column=0)
+cal1 = tkcalendar.DateEntry(root, selectmode='day', year=2023, month=1)
+cal1.grid(row=0, column=1, padx=5, pady=5)
 
-tk.Label(root, text='StartDate', width=20).grid(row=0, column=0)
-cal = Calendar(root, selectmode='day', year=2022)
-cal.grid(row=0, column=1)
-# entry1 = tk.Entry(root, width=30)
-# entry1.grid(row=0, column=1)
+tk.Label(root, text='EndDate', width=10).grid(row=1, column=0, padx=5, pady=5)
+cal2 = tkcalendar.DateEntry(root, selectmode='day', year=2023, month=1)
+cal2.grid(row=1, column=1, padx=5, pady=5)
 
-tk.Label(root, text='EndDate', width=20).grid(row=1, column=0, padx=0, pady=0)
-cal2 = Calendar(root, selectmode='day', year=2022)
-cal2.grid(row=1, column=1, padx=0, pady=0)
+tk.Label(root, text='Min Deposit', width=10).grid(row=0, column=2, padx=5, pady=5)
+min_deposit = tk.Entry(root, width=10)
+min_deposit.grid(row=0, column=3, padx=5, pady=5)
 
-tk.Label(root, text='Minimum Deposit', width=20).grid(row=0, column=2, padx=0, pady=0)
-min_deposit = tk.Entry(root, width=20)
-min_deposit.grid(row=0, column=3, padx=0, pady=0)
+tk.Label(root, text='Max Deposit', width=10).grid(row=1, column=2, padx=5, pady=5)
+max_deposit = tk.Entry(root, width=10)
+max_deposit.grid(row=1, column=3, padx=5, pady=5)
 
-tk.Label(root, text='Maximal Deposit', width=20).grid(row=1, column=2, padx=0, pady=0)
-max_deposit = tk.Entry(root, width=20)
-max_deposit.grid(row=1, column=3, padx=0, pady=0)
+OPTIONS = [
+    "Dep",
+    "Bet",
+    "GGR"
+]
+
+variable = tk.StringVar(root)
+variable.set(OPTIONS[0])
+
+tk.Label(root, text='Type', width=10).grid(row=0, column=4, padx=5, pady=5)
+
+w = tk.OptionMenu(root, variable, *OPTIONS)
+w.grid(row=0, column=5, padx=5, pady=5)
 
 tk.Button(root, text='Button', command=button_command).grid(row=2, column=0)
 
